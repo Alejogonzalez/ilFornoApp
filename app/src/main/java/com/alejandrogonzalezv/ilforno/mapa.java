@@ -1,10 +1,14 @@
 package com.alejandrogonzalezv.ilforno;
 
+import android.database.Cursor;
+import android.database.CursorIndexOutOfBoundsException;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -18,6 +22,8 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class mapa extends ActionBarActivity {
     private GoogleMap map;
     private CameraUpdate cameraUpdate;
+    private DataBaseManager Manager;
+    private Cursor cursor;
 
     private final LatLng LOCATION_HOME = new LatLng(6.260768,-75.601676);
     private final LatLng LOCATION_CITY = new LatLng(6.247899,-75.576239);
@@ -25,6 +31,8 @@ public class mapa extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mapa);
+
+        Manager = new DataBaseManager(getApplicationContext());
 
         map = ((MapFragment)getFragmentManager().findFragmentById(R.id.map)).getMap();
 
@@ -43,6 +51,26 @@ public class mapa extends ActionBarActivity {
         cameraUpdate = CameraUpdateFactory.newLatLngZoom(LOCATION_HOME, 16);
         map.animateCamera(cameraUpdate);
     }
+
+    public void onClick1(View view){
+        map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
+        cursor = Manager.buscarContacto("a");
+        Toast.makeText(getApplicationContext(), "prueba ", Toast.LENGTH_SHORT).show();
+
+            String dbnombre = cursor.getString(cursor.getColumnIndex(Manager.CN_NAME));
+            String dblatitud = cursor.getString(cursor.getColumnIndex(Manager.CN_LAT));
+            String dblongitud = cursor.getString(cursor.getColumnIndex(Manager.CN_LONG));
+            float lat = Float.parseFloat(dblatitud);
+            float longitud = Float.parseFloat(dblongitud);
+            final LatLng LOCATION_VAR = new LatLng(lat,longitud);
+            Toast.makeText(getApplicationContext(), "Llendo "+dblatitud+" "+dblongitud, Toast.LENGTH_SHORT).show();
+            cameraUpdate = CameraUpdateFactory.newLatLngZoom(LOCATION_VAR, 16);
+            map.animateCamera(cameraUpdate);
+
+
+
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

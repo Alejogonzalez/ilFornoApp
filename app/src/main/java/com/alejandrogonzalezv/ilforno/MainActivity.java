@@ -36,6 +36,11 @@ public class MainActivity extends ActionBarActivity {
             startActivity(m);
             return true;
         }
+        if (id == R.id.actform) {
+            Intent f = new Intent(this,formulario.class);
+            startActivity(f);
+            return true;
+        }
 
         return super.onOptionsItemSelected(item);
     }

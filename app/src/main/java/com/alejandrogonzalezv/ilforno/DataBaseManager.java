@@ -58,12 +58,6 @@ public class DataBaseManager {
 
     public Cursor buscarContacto(String Nombre) {
         String [] columnas = new String[]{CN_ID,CN_NAME,CN_LAT,CN_LONG};
-        try {
-            Thread.sleep(2000);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         return db.query(TABLE_NAME,columnas,CN_NAME + "=?",new String[]{Nombre},null,null,null);
     }
 }

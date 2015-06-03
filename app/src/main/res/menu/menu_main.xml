@@ -5,4 +5,6 @@
     tools:context=".MainActivity">
     <item android:id="@+id/actmapa"
         android:title="@string/title_activity_mapa"/>
+    <item android:id="@+id/actform"
+        android:title="@string/title_activity_formulario"/>
 </menu>
