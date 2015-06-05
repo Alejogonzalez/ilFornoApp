@@ -22,7 +22,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 public class mapa extends ActionBarActivity {
     private GoogleMap map;
     private CameraUpdate cameraUpdate;
-    private DataBaseManager Manager;
+
     private Cursor cursor;
 
     private final LatLng LOCATION_HOME = new LatLng(6.260768,-75.601676);
@@ -32,7 +32,7 @@ public class mapa extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mapa);
 
-        Manager = new DataBaseManager(getApplicationContext());
+
 
         map = ((MapFragment)getFragmentManager().findFragmentById(R.id.map)).getMap();
 
@@ -43,7 +43,7 @@ public class mapa extends ActionBarActivity {
                 .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
 
         map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-        cameraUpdate = CameraUpdateFactory.newLatLngZoom(LOCATION_CITY, 8);
+        cameraUpdate = CameraUpdateFactory.newLatLngZoom(LOCATION_CITY, 10);
         map.animateCamera(cameraUpdate);
     }
     public void onClick(View view){
@@ -53,19 +53,31 @@ public class mapa extends ActionBarActivity {
     }
 
     public void onClick1(View view){
+        DataBaseManager Manager = formulario.getManager();
         map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         cursor = Manager.buscarContacto("a");
-        Toast.makeText(getApplicationContext(), "prueba ", Toast.LENGTH_SHORT).show();
+        if(cursor.moveToFirst()){
+            Toast.makeText(getApplicationContext(), "prueba ", Toast.LENGTH_SHORT).show();
 
-            String dbnombre = cursor.getString(cursor.getColumnIndex(Manager.CN_NAME));
-            String dblatitud = cursor.getString(cursor.getColumnIndex(Manager.CN_LAT));
-            String dblongitud = cursor.getString(cursor.getColumnIndex(Manager.CN_LONG));
+            String dbnombre = cursor.getString(cursor.getColumnIndex(Manager.CN_NAME)).toString();
+            String dblatitud = cursor.getString(cursor.getColumnIndex(Manager.CN_LAT)).toString();
+            String dblongitud = cursor.getString(cursor.getColumnIndex(Manager.CN_LONG)).toString();
             float lat = Float.parseFloat(dblatitud);
             float longitud = Float.parseFloat(dblongitud);
             final LatLng LOCATION_VAR = new LatLng(lat,longitud);
-            Toast.makeText(getApplicationContext(), "Llendo "+dblatitud+" "+dblongitud, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Llendo "+dblatitud+", "+dblongitud, Toast.LENGTH_SHORT).show();
+            map.addMarker(new MarkerOptions()
+                    .position(LOCATION_VAR)
+                    .title(dbnombre)
+                    .snippet("Dirección")
+                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
             cameraUpdate = CameraUpdateFactory.newLatLngZoom(LOCATION_VAR, 16);
             map.animateCamera(cameraUpdate);
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "no encontrado ", Toast.LENGTH_SHORT).show();
+        }
+
 
 
 
