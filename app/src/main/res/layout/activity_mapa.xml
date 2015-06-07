@@ -12,7 +12,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="12"
-            android:text="Medellin"
+            android:text="Ver Ciudad"
             android:onClick="onClick"
             android:id="@+id/button1"
             />
@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="12"
-            android:text="Cargar"
+            android:text="Mi Posición"
             android:onClick="onClick1"
             android:id="@+id/button2"
             />

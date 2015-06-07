@@ -37,42 +37,19 @@ public class mapa extends ActionBarActivity {
         map = ((MapFragment)getFragmentManager().findFragmentById(R.id.map)).getMap();
 
         map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-        cameraUpdate = CameraUpdateFactory.newLatLngZoom(LOCATION_CITY, 10);
+        cameraUpdate = CameraUpdateFactory.newLatLngZoom(LOCATION_CITY, 11);
         map.animateCamera(cameraUpdate);
         cargarRest();
     }
 
     public void onClick(View view){
         map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-        cameraUpdate = CameraUpdateFactory.newLatLngZoom(LOCATION_HOME, 16);
+        cameraUpdate = CameraUpdateFactory.newLatLngZoom(LOCATION_CITY, 11);
         map.animateCamera(cameraUpdate);
     }
 
     public void onClick1(View view){
-        DataBaseManager Manager = formulario.getManager();
-        map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-        cursor = Manager.buscarContacto("a");
-        if(cursor.moveToFirst()){
-            Toast.makeText(getApplicationContext(), "prueba ", Toast.LENGTH_SHORT).show();
 
-            String dbnombre = cursor.getString(cursor.getColumnIndex(Manager.CN_NAME)).toString();
-            String dblatitud = cursor.getString(cursor.getColumnIndex(Manager.CN_LAT)).toString();
-            String dblongitud = cursor.getString(cursor.getColumnIndex(Manager.CN_LONG)).toString();
-            float lat = Float.parseFloat(dblatitud);
-            float longitud = Float.parseFloat(dblongitud);
-            final LatLng LOCATION_VAR = new LatLng(lat,longitud);
-            Toast.makeText(getApplicationContext(), "Llendo "+dblatitud+", "+dblongitud, Toast.LENGTH_SHORT).show();
-            map.addMarker(new MarkerOptions()
-                    .position(LOCATION_VAR)
-                    .title(dbnombre)
-                    .snippet("Dirección")
-                    .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
-            cameraUpdate = CameraUpdateFactory.newLatLngZoom(LOCATION_VAR, 16);
-            map.animateCamera(cameraUpdate);
-        }
-        else{
-            Toast.makeText(getApplicationContext(), "no encontrado ", Toast.LENGTH_SHORT).show();
-        }
     }
 
     public void cargarRest(){
@@ -91,7 +68,7 @@ public class mapa extends ActionBarActivity {
                         .position(LOCATION_VAR)
                         .title(dbnombre)
                         .snippet(dblatitud+", "+dblongitud)
-                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
             }while (cursor.moveToNext());
 
         }
