@@ -32,7 +32,7 @@ public class formulario extends ActionBarActivity implements View.OnClickListene
         lista = (ListView) findViewById(android.R.id.list);
         Ednombre = (EditText) findViewById(R.id.EdText1);
 
-        String[] from = new String[]{Manager.CN_NAME,Manager.CN_LAT};
+        String[] from = new String[]{Manager.CN_ID,Manager.CN_NAME};
         int[] to = new int[]{android.R.id.text1,android.R.id.text2};
         cursor = Manager.cargarCursorContactos();
         adapter = new SimpleCursorAdapter(this,android.R.layout.two_line_list_item,cursor,from,to,0);

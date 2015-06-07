@@ -36,16 +36,12 @@ public class mapa extends ActionBarActivity {
 
         map = ((MapFragment)getFragmentManager().findFragmentById(R.id.map)).getMap();
 
-        map.addMarker(new MarkerOptions()
-                .position(LOCATION_HOME)
-                .title("My Home")
-                .snippet("Where the maginc Happens")
-                .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)));
-
         map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         cameraUpdate = CameraUpdateFactory.newLatLngZoom(LOCATION_CITY, 10);
         map.animateCamera(cameraUpdate);
+        cargarRest();
     }
+
     public void onClick(View view){
         map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         cameraUpdate = CameraUpdateFactory.newLatLngZoom(LOCATION_HOME, 16);
@@ -77,12 +73,32 @@ public class mapa extends ActionBarActivity {
         else{
             Toast.makeText(getApplicationContext(), "no encontrado ", Toast.LENGTH_SHORT).show();
         }
-
-
-
-
     }
 
+    public void cargarRest(){
+        DataBaseManager Manager = formulario.getManager();
+        cursor = Manager.cargarCursorContactos();
+        if (cursor.moveToFirst()){
+            do{
+                String dbnombre = cursor.getString(cursor.getColumnIndex(Manager.CN_NAME)).toString();
+                String dblatitud = cursor.getString(cursor.getColumnIndex(Manager.CN_LAT)).toString();
+                String dblongitud = cursor.getString(cursor.getColumnIndex(Manager.CN_LONG)).toString();
+                float lat = Float.parseFloat(dblatitud);
+                float longitud = Float.parseFloat(dblongitud);
+                final LatLng LOCATION_VAR = new LatLng(lat,longitud);
+                Toast.makeText(getApplicationContext(), dbnombre, Toast.LENGTH_SHORT).show();
+                map.addMarker(new MarkerOptions()
+                        .position(LOCATION_VAR)
+                        .title(dbnombre)
+                        .snippet(dblatitud+", "+dblongitud)
+                        .icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)));
+            }while (cursor.moveToNext());
+
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "no hay Restaurantes ", Toast.LENGTH_SHORT).show();
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
