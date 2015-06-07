@@ -53,7 +53,7 @@ public class mapa extends ActionBarActivity {
     }
 
     public void cargarRest(){
-        DataBaseManager Manager = formulario.getManager();
+        DataBaseManager Manager = MainActivity.getManager();
         cursor = Manager.cargarCursorContactos();
         if (cursor.moveToFirst()){
             do{

@@ -18,7 +18,7 @@ import android.widget.Toast;
 
 public class formulario extends ActionBarActivity implements View.OnClickListener {
 
-    private static DataBaseManager Manager;
+    DataBaseManager Manager = MainActivity.getManager();
     private Cursor cursor;
     private ListView lista;
     private SimpleCursorAdapter adapter;
@@ -28,7 +28,7 @@ public class formulario extends ActionBarActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_formulario);
-        Manager = new DataBaseManager(this);
+
         lista = (ListView) findViewById(android.R.id.list);
         Ednombre = (EditText) findViewById(R.id.EdText1);
 
@@ -53,9 +53,7 @@ public class formulario extends ActionBarActivity implements View.OnClickListene
         btnactualizar.setOnClickListener(this);
     }
 
-    public static DataBaseManager getManager() {
-        return Manager;
-    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
