@@ -151,14 +151,14 @@ public class formulario extends ActionBarActivity implements View.OnClickListene
         TextView Txnombre = (TextView) findViewById(R.id.Txnombre);
         TextView Txlatitud = (TextView) findViewById(R.id.TxLatitud);
         TextView Txlongitud = (TextView) findViewById(R.id.TxLongitud);
-        try{
+        if (cursor.moveToFirst()){
             String dbnombre = cursor.getString(cursor.getColumnIndex(Manager.CN_NAME));
             Txnombre.setText(dbnombre);
             String dblatitud = cursor.getString(cursor.getColumnIndex(Manager.CN_LAT));
             Txlatitud.setText(dblatitud);
             String dblongitud = cursor.getString(cursor.getColumnIndex(Manager.CN_LONG));
             Txlongitud.setText(dblongitud);}
-        catch(CursorIndexOutOfBoundsException e){
+        else{
             Txnombre.setText("No Found");
             Txlatitud.setText("No Found");
             Txlongitud.setText("No Found");

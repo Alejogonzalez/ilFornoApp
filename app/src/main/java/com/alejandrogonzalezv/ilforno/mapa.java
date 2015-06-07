@@ -25,7 +25,6 @@ public class mapa extends ActionBarActivity {
 
     private Cursor cursor;
 
-    private final LatLng LOCATION_HOME = new LatLng(6.260768,-75.601676);
     private final LatLng LOCATION_CITY = new LatLng(6.247899,-75.576239);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
