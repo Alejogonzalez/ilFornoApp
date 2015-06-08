@@ -1,5 +1,6 @@
 package com.alejandrogonzalezv.ilforno;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.CursorIndexOutOfBoundsException;
 import android.support.v7.app.ActionBarActivity;
@@ -30,11 +31,7 @@ public class mapa extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mapa);
-
-
-
         map = ((MapFragment)getFragmentManager().findFragmentById(R.id.map)).getMap();
-
         map.setMapType(GoogleMap.MAP_TYPE_HYBRID);
         cameraUpdate = CameraUpdateFactory.newLatLngZoom(LOCATION_CITY, 11);
         map.animateCamera(cameraUpdate);
@@ -91,7 +88,14 @@ public class mapa extends ActionBarActivity {
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.actform) {
+            Intent f = new Intent(this,formulario.class);
+            startActivity(f);
+            return true;
+        }
+        if (id == R.id.actmain) {
+            Intent m = new Intent(this,MainActivity.class);
+            startActivity(m);
             return true;
         }
 

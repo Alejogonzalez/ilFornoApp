@@ -1,5 +1,6 @@
 package com.alejandrogonzalezv.ilforno;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.CursorIndexOutOfBoundsException;
 import android.os.AsyncTask;
@@ -70,7 +71,14 @@ public class formulario extends ActionBarActivity implements View.OnClickListene
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
+        if (id == R.id.actmapa) {
+            Intent m = new Intent(this,mapa.class);
+            startActivity(m);
+            return true;
+        }
+        if (id == R.id.actmain) {
+            Intent ma = new Intent(this,MainActivity.class);
+            startActivity(ma);
             return true;
         }
 
